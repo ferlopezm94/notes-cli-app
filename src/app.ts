@@ -38,11 +38,22 @@ yargs.command(
 );
 
 yargs.command('list', 'List your notes', () => {
-  console.log('Listing the notes');
+  notes.listNotes();
 });
 
-yargs.command('read', 'Read a note', () => {
-  console.log('Reading the note');
-});
+yargs.command(
+  'read',
+  'Read a note',
+  {
+    title: {
+      describe: 'Note title',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  argv => {
+    notes.readNote(argv.title);
+  },
+);
 
 yargs.parse();
