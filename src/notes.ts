@@ -26,9 +26,9 @@ const saveNotes = (notes: Note[]) => {
 
 export const addNote = (title: string, body: string) => {
   const notes = loadNotes();
-  const duplicatedNotes = notes.filter(note => note.title === title);
+  const duplicatedNote = notes.find(note => note.title === title);
 
-  if (duplicatedNotes.length === 0) {
+  if (!duplicatedNote) {
     notes.push({ title, body });
     saveNotes(notes);
     console.log(chalk.bgGreen('✔️ New note added!'));
@@ -44,6 +44,31 @@ export const removeNote = (title: string) => {
   if (notes.length > notesToKeep.length) {
     saveNotes(notesToKeep);
     console.log(chalk.bgGreen('✔️ Note removed!'));
+  } else {
+    console.log(chalk.bgRed('😔 No note found'));
+  }
+};
+
+export const listNotes = () => {
+  const notes = loadNotes();
+  console.log('----------');
+  console.log(chalk.blue.bold('Your notes'));
+  console.log('----------');
+
+  if (notes.length > 0) {
+    notes.forEach(note => console.log(`- ${note.title}`));
+  } else {
+    console.log('😔 You have 0 notes');
+  }
+};
+
+export const readNote = (title: string) => {
+  const notes = loadNotes();
+  const note = notes.find(note => note.title === title);
+
+  if (note) {
+    console.log(chalk.bold(`Title: ${note.title}`));
+    console.log(`Body: ${note.body}`);
   } else {
     console.log(chalk.bgRed('😔 No note found'));
   }
