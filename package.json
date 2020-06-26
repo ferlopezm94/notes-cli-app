@@ -1,6 +1,6 @@
 {
   "name": "notes-cli-app",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Command line application to track notes.",
   "main": "app.ts",
   "author": "Fenando López Martínez",
