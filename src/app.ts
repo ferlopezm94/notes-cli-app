@@ -1,5 +1,7 @@
 import yargs from 'yargs';
 
+import * as notes from './notes';
+
 yargs.command(
   'add',
   'Add a new note',
@@ -16,14 +18,24 @@ yargs.command(
     },
   },
   argv => {
-    console.log('Title :>> ', argv.title);
-    console.log('Body :>> ', argv.body);
+    notes.addNote(argv.title, argv.body);
   },
 );
 
-yargs.command('remove', 'Remove a note', () => {
-  console.log('Removing the note');
-});
+yargs.command(
+  'remove',
+  'Remove a note',
+  {
+    title: {
+      describe: 'Note title',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  argv => {
+    notes.removeNote(argv.title);
+  },
+);
 
 yargs.command('list', 'List your notes', () => {
   console.log('Listing the notes');
